@@ -3,16 +3,15 @@ package com.ske.snakebaddesign.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.ske.snakebaddesign.R;
 import com.ske.snakebaddesign.guis.BoardView;
-
-import java.util.Random;
+import com.ske.snakebaddesign.models.Player;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -25,6 +24,9 @@ public class GameActivity extends AppCompatActivity {
     private Button buttonTakeTurn;
     private Button buttonRestart;
     private TextView textPlayerTurn;
+
+    private Player player1;
+    private Player player2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,10 @@ public class GameActivity extends AppCompatActivity {
         buttonTakeTurn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                takeTurn();
+                if(turn % 2 == 0)
+                    takeTurn(player1);
+                else
+                    takeTurn(player2);
             }
         });
         buttonRestart = (Button) findViewById(R.id.button_restart);
@@ -56,6 +61,9 @@ public class GameActivity extends AppCompatActivity {
             }
         });
         textPlayerTurn = (TextView) findViewById(R.id.text_player_turn);
+
+        player1 = new Player("Player 1");
+        player2 = new Player("Player 2");
     }
 
     private void resetGame() {
@@ -68,8 +76,8 @@ public class GameActivity extends AppCompatActivity {
         boardView.setP2Position(p2Position);
     }
 
-    private void takeTurn() {
-        final int value = 1 + new Random().nextInt(6);
+    private void takeTurn(Player player) {
+        final int value = player.rollDice();//1 + new Random().nextInt(6);
         String title = "You rolled a die";
         String msg = "You got " + value;
         OnClickListener listener = new OnClickListener() {
@@ -85,11 +93,11 @@ public class GameActivity extends AppCompatActivity {
         if (turn % 2 == 0) {
             p1Position = adjustPosition(p1Position, value);
             boardView.setP1Position(p1Position);
-            textPlayerTurn.setText("Player 2's Turn");
+            textPlayerTurn.setText(player1.getName()+"'s Turn");
         } else {
             p2Position = adjustPosition(p2Position, value);
             boardView.setP2Position(p2Position);
-            textPlayerTurn.setText("Player 1's Turn");
+            textPlayerTurn.setText(player2.getName()+"'s Turn");
         }
         checkWin();
         turn++;
@@ -114,9 +122,9 @@ public class GameActivity extends AppCompatActivity {
             }
         };
         if (p1Position == boardSize * boardSize - 1) {
-            msg = "Player 1 won!";
+            msg = player1.getName()+" won!";
         } else if (p2Position == boardSize * boardSize - 1) {
-            msg = "Player 2 won!";
+            msg = player2.getName()+" won!";
         } else {
             return;
         }
