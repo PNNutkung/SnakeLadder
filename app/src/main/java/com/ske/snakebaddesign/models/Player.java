@@ -8,9 +8,11 @@ package com.ske.snakebaddesign.models;
 public class Player {
     private Dice die;
     private String name;
+    private int position;
     public Player(String name){
-        die = new Dice();
+        die = Dice.getInstance();
         this.name = name;
+        this.position = 0;
     }
 
     public int rollDice(){
@@ -19,5 +21,17 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

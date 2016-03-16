@@ -7,6 +7,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.ske.snakebaddesign.models.Board;
+import com.ske.snakebaddesign.models.Player;
+
 public class BoardView extends View {
 
     // Graphics variables
@@ -22,9 +25,10 @@ public class BoardView extends View {
     private int colorText = Color.parseColor("#cfe8a6");
 
     // These variables will be used to keep track of what to render
-    private int boardSize;
     private int p1Position;
     private int p2Position;
+    private int boardSize;
+    private Board board;
 
     public BoardView(Context context) {
         super(context);
@@ -55,8 +59,10 @@ public class BoardView extends View {
         drawPlayerPieces(canvas);
     }
 
-    public void setBoardSize(int boardSize) {
-        this.boardSize = boardSize;
+    public void resetBoard(Player p1,Player p2){
+        this.boardSize = board.getBoardSize();
+        this.p1Position = p1.getPosition();
+        this.p2Position = p2.getPosition();
         postInvalidate();
     }
 
@@ -71,7 +77,8 @@ public class BoardView extends View {
     }
 
     private void init() {
-        boardSize = 1;
+        //boardSize = 1;
+        board = Board.getInstance();
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setTextSize(20);
         paint.setTextAlign(Paint.Align.CENTER);
