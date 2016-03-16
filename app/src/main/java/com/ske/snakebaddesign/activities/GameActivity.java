@@ -67,8 +67,8 @@ public class GameActivity extends AppCompatActivity {
 
         player1 = new Player("Player 1");
         player2 = new Player("Player 2");
-        setPlayerName("Player 2 Name", player2);
-        setPlayerName("Player 1 Name", player1);
+        setPlayerName("Black Player Name", player2);
+        setPlayerName("White Player Name", player1);
         board = Board.getInstance();
         board.setBoardSize(6);
     }
@@ -138,11 +138,11 @@ public class GameActivity extends AppCompatActivity {
         if (turn % 2 == 0) {
             player1.setPosition(adjustPosition(player1.getPosition(), value));
             boardView.setP1Position(player1.getPosition());
-            textPlayerTurn.setText(player1.getName() + "'s Turn");
+            textPlayerTurn.setText(player2.getName() + "'s Turn");
         } else {
             player2.setPosition(adjustPosition(player2.getPosition(), value));
             boardView.setP2Position(player2.getPosition());
-            textPlayerTurn.setText(player2.getName()+"'s Turn");
+            textPlayerTurn.setText(player1.getName()+"'s Turn");
         }
         checkWin();
         turn++;
