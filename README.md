@@ -1,3 +1,4 @@
+## 5710546372 Pipatpol Tanavongchinda
 Snake Ladder
 ========
 
@@ -10,7 +11,7 @@ Domain model
 * BoardView
 * Player
 * Dice
-* Board
+* Board (use Singleton Pattern)
 
 GRASP Creator
 -----------
