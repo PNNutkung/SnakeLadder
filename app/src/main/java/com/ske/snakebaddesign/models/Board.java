@@ -1,10 +1,12 @@
 package com.ske.snakebaddesign.models;
 
+import com.ske.snakebaddesign.guis.BoardView;
+
 /**
  * Created by Pipatpol on 2559-03-14.
  */
 public class Board {
-
+    private BoardView boardView;
     private static Board board;
     private int boardSize;
 
@@ -23,7 +25,15 @@ public class Board {
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
     }
+    public void setP1Position(int player1Pos){
+        boardView.setP1Position(player1Pos);
+    }
 
+    public void setP2Position(int player2Pos){
+        boardView.setP2Position(player2Pos);
+    }
 
-
+    public void setBoardView(BoardView boardView){
+        this.boardView = boardView;
+    }
 }

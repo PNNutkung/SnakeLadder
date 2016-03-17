@@ -64,13 +64,13 @@ public class GameActivity extends AppCompatActivity {
         });
         textPlayerTurn = (TextView) findViewById(R.id.text_player_turn);
 
-
         player1 = new Player("Player 1");
         player2 = new Player("Player 2");
         setPlayerName("Black Player Name", player2);
         setPlayerName("White Player Name", player1);
         board = Board.getInstance();
         board.setBoardSize(6);
+        board.setBoardView(boardView);
     }
 
     private void setPlayerName(String title,Player player){
@@ -137,11 +137,11 @@ public class GameActivity extends AppCompatActivity {
     private void moveCurrentPiece(int value) {
         if (turn % 2 == 0) {
             player1.setPosition(adjustPosition(player1.getPosition(), value));
-            boardView.setP1Position(player1.getPosition());
+            board.setP1Position(player1.getPosition());
             textPlayerTurn.setText(player2.getName() + "'s Turn");
         } else {
             player2.setPosition(adjustPosition(player2.getPosition(), value));
-            boardView.setP2Position(player2.getPosition());
+            board.setP2Position(player2.getPosition());
             textPlayerTurn.setText(player1.getName()+"'s Turn");
         }
         checkWin();
